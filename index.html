@@ -1,153 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Roblox Voice Chat Lobby</title>
-  <style>
-    body {
-      font-family: "Gotham", Arial, sans-serif;
-      background: #1a1a1a;
-      color: white;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #232323;
-      padding: 15px;
-      font-size: 24px;
-      font-weight: bold;
-      border-bottom: 3px solid #00cc88;
-    }
-    #serverInfo {
-      margin: 20px 0;
-      font-size: 18px;
-    }
-    .playerList {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
-    .playerCard {
-      background: #2c2c2c;
-      padding: 15px;
-      border-radius: 10px;
-      width: 200px;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease;
-    }
-    .playerCard:hover {
-      transform: scale(1.05);
-    }
-    .avatar {
-      width: 150px;
-      height: 150px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .username {
-      font-size: 18px;
-      margin-bottom: 8px;
-      color: #00cc88;
-    }
-    .muteBtn {
-      background: #00cc88;
-      border: none;
-      padding: 8px 12px;
-      font-size: 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-    .muteBtn:hover {
-      background: #00aa77;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: none;
-    }
-    #verifyBtn {
-      background: #00cc88;
-      color: white;
-      cursor: pointer;
-    }
-    #verifyBtn:hover {
-      background: #00aa77;
-    }
-  </style>
+  <title>Roblox Voice Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <header>🔊 Roblox Voice Chat Lobby</header>
-
-  <div id="serverInfo">Server ID: <span id="serverId">Loading...</span></div>
-
-  <div>
-    <input type="text" id="userid" placeholder="Enter Roblox UserId">
-    <input type="text" id="code" placeholder="Enter Verification Code">
-    <button id="verifyBtn" onclick="verify()">Verify</button>
+  <div id="voice-chat-container">
+    <h1>Roblox Voice Chat</h1>
+    <div id="user-list"></div>
   </div>
-
-  <p id="result"></p>
-
-  <div class="playerList" id="playerList"></div>
-
-  <script>
-    const serverId = "VC-" + Math.floor(Math.random() * 100000);
-    document.getElementById("serverId").textContent = serverId;
-
-    const firebaseURL = "https://robloxvoicechat-ff87d-default-rtdb.firebaseio.com";
-
-    async function verify() {
-      const userId = document.getElementById('userid').value.trim();
-      const code = document.getElementById('code').value.trim();
-      const res = await fetch(`${firebaseURL}/codes/${userId}.json`);
-      const data = await res.json();
-      const result = document.getElementById('result');
-
-      if (data && data.code === code) {
-        result.textContent = "✅ Verified!";
-        result.style.color = "lime";
-        addPlayer(userId);
-      } else {
-        result.textContent = "❌ Invalid code.";
-        result.style.color = "red";
-      }
-    }
-
-    async function addPlayer(userId) {
-      const avatarRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png`);
-      const avatarData = await avatarRes.json();
-      const avatarUrl = avatarData.data[0]?.imageUrl || "";
-
-      const userRes = await fetch(`https://users.roblox.com/v1/users/${userId}`);
-      const userData = await userRes.json();
-
-      const card = document.createElement("div");
-      card.className = "playerCard";
-      card.innerHTML = `
-        <img src="${avatarUrl}" class="avatar">
-        <div class="username"><a href="https://www.roblox.com/users/${userId}/profile" target="_blank" style="color:#00cc88;text-decoration:none;">${userData.name}</a></div>
-        <button class="muteBtn" onclick="toggleMute(this, '${userId}')">Mute</button>
-      `;
-      document.getElementById("playerList").appendChild(card);
-    }
-
-    function toggleMute(button, userId) {
-      if (button.textContent === "Mute") {
-        button.textContent = "Unmute";
-        button.style.background = "#cc0000";
-      } else {
-        button.textContent = "Mute";
-        button.style.background = "#00cc88";
-      }
-    }
-  </script>
-
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
