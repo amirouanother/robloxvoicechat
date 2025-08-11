@@ -1,32 +1,64 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1c1c1c;
+    background: #1a1a1a;
     color: white;
-}
-#voice-chat-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-}
-.user-card {
+    font-family: Arial, sans-serif;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+#vc-container {
     background: #2a2a2a;
+    padding: 20px;
     border-radius: 12px;
+    width: 400px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+input, button {
+    width: 100%;
     padding: 10px;
     margin: 5px 0;
+    border: none;
+    border-radius: 8px;
 }
-.user-card img {
-    border-radius: 50%;
+
+button {
+    background: #00aa00;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #008800;
+}
+
+.player {
+    display: flex;
+    align-items: center;
+    background: #3a3a3a;
+    padding: 8px;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.player img {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
     margin-right: 10px;
 }
-.mute-button {
+
+.mute-btn {
     margin-left: auto;
-    background: red;
-    padding: 5px 10px;
+    background: #aa0000;
     border: none;
-    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
     color: white;
+    cursor: pointer;
+}
+
+.mute-btn.unmuted {
+    background: #00aa00;
 }
