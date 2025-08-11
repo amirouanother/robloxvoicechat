@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Roblox Voice Chat</title>
-  <link rel="stylesheet" href="style.css">
+<title>Roblox Voice Chat</title>
+<link rel="stylesheet" href="style.css">
+<script type="module" src="voice.js"></script>
 </head>
 <body>
-  <div id="voice-chat-container">
+<div id="vc-container">
     <h1>Roblox Voice Chat</h1>
-    <div id="user-list"></div>
-  </div>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-  <script src="script.js"></script>
+    <div id="verify-panel">
+        <input id="userid" placeholder="Roblox User ID">
+        <input id="code" placeholder="Verification Code">
+        <button id="verify-btn">Verify</button>
+    </div>
+    <div id="voice-panel" style="display:none;">
+        <h2>Connected Players</h2>
+        <div id="player-list"></div>
+    </div>
+</div>
 </body>
 </html>
